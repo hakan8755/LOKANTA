@@ -24,6 +24,8 @@ Admin ve Personel Giriş Sayfaları
 Mutfak Tablosu : Siparişler ve ürünler görüntülenebilir
  <br>
   ## Admin Ekranları
-  <br>
- ![admin_anasayfa]()
+ <br>
+
+ ![image](https://github.com/hakan8755/LOKANTA/assets/108374151/09c0943e-0749-4da1-bd85-4d4ffbdc3cbc)
+
 
