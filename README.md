@@ -1,4 +1,3 @@
-![image](https://github.com/hakan8755/LOKANTA/assets/108374151/311c9074-19e1-492f-b4ad-39fab1cc1495)# EBH-Restaurant-Automation
 `Hakan Aytuğ Fırat`
 <br>
 ## Lokanta Otomasyonu Veri Tabanı Projesi
