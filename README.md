@@ -1,4 +1,5 @@
 `Hakan Aytuğ Fırat`
+(Grup Çalışması Yapıldı)
 <br>
 ## Lokanta Otomasyonu Veri Tabanı Projesi
 
