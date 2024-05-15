@@ -245,6 +245,7 @@
             Name = "MasalarForm";
             Text = "UrunForm";
             WindowState = FormWindowState.Maximized;
+            Load += MasalarForm_Load;
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

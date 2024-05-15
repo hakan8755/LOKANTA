@@ -89,6 +89,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(280, 1041);
             panel1.TabIndex = 0;
+            panel1.Paint += panel1_Paint;
             // 
             // button10
             // 
@@ -268,6 +269,7 @@
             label7.TabIndex = 44;
             label7.Text = "Masa No:";
             label7.Visible = false;
+            label7.Click += label7_Click;
             // 
             // label8
             // 
@@ -444,6 +446,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Deneme";
             WindowState = FormWindowState.Maximized;
+            Load += UrunSiparisEkran_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();

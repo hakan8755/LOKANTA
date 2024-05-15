@@ -43,10 +43,21 @@ namespace LOKANTA
 
                 // Bağlantıyı aç
                 connection.Open();
-
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Ürün eklendi");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hatalı Ürün Eklemem İşlemi Lütfen Doğru Şekilde Ekleyiniz: " + ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
                 // Komutu çalıştır
-                command.ExecuteNonQuery();
-                MessageBox.Show("Ürün eklendi");
+
             }
         }
 
@@ -54,13 +65,21 @@ namespace LOKANTA
         {
             using (MySqlConnection connection = new MySqlConnection(gnl.connadress))
             {
-                string id = textBox5.Text.ToString();
+                string id = textBox6.Text.ToString();
                 string query = "DELETE FROM products WHERE product_id = @Numara";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Numara", id);
                 connection.Open();
-                command.ExecuteNonQuery();
-                MessageBox.Show("Ürün Silindi");
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Ürün Silindi");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hatalı Ürün Silme İşlemi Lütfen İd yi doğru girdiğinizden emin olunuz: " + ex.Message);
+                }
+
             }
         }
 
@@ -79,6 +98,16 @@ namespace LOKANTA
         private void button6_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

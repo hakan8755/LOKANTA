@@ -30,11 +30,8 @@
         {
             panel1 = new Panel();
             button6 = new Button();
-            label6 = new Label();
             textBox6 = new TextBox();
-            textBox5 = new TextBox();
             button5 = new Button();
-            button4 = new Button();
             button3 = new Button();
             button2 = new Button();
             textBox4 = new TextBox();
@@ -48,18 +45,17 @@
             label1 = new Label();
             label2 = new Label();
             openFileDialog1 = new OpenFileDialog();
+            label6 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.DarkOliveGreen;
-            panel1.Controls.Add(button6);
             panel1.Controls.Add(label6);
+            panel1.Controls.Add(button6);
             panel1.Controls.Add(textBox6);
-            panel1.Controls.Add(textBox5);
             panel1.Controls.Add(button5);
-            panel1.Controls.Add(button4);
             panel1.Controls.Add(button3);
             panel1.Controls.Add(button2);
             panel1.Controls.Add(textBox4);
@@ -93,30 +89,13 @@
             button6.UseVisualStyleBackColor = false;
             button6.Click += button6_Click;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Century Gothic", 17.25F);
-            label6.Location = new Point(120, 149);
-            label6.Margin = new Padding(7, 0, 7, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(103, 27);
-            label6.TabIndex = 21;
-            label6.Text = "Ürün İd :";
-            // 
             // textBox6
             // 
-            textBox6.Location = new Point(193, 744);
+            textBox6.Location = new Point(226, 744);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(161, 33);
             textBox6.TabIndex = 20;
-            // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(233, 149);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(161, 33);
-            textBox5.TabIndex = 19;
+            textBox6.TextChanged += textBox6_TextChanged;
             // 
             // button5
             // 
@@ -128,19 +107,10 @@
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click;
             // 
-            // button4
-            // 
-            button4.Location = new Point(209, 624);
-            button4.Name = "button4";
-            button4.Size = new Size(145, 70);
-            button4.TabIndex = 16;
-            button4.Text = "Ürün Güncelle";
-            button4.UseVisualStyleBackColor = true;
-            // 
             // button3
             // 
             button3.BackColor = Color.DarkOrange;
-            button3.Location = new Point(58, 744);
+            button3.Location = new Point(39, 745);
             button3.Name = "button3";
             button3.Size = new Size(129, 33);
             button3.TabIndex = 15;
@@ -150,9 +120,9 @@
             // 
             // button2
             // 
-            button2.Location = new Point(42, 624);
+            button2.Location = new Point(203, 567);
             button2.Name = "button2";
-            button2.Size = new Size(145, 70);
+            button2.Size = new Size(184, 70);
             button2.TabIndex = 14;
             button2.Text = "Ürün Ekle ";
             button2.UseVisualStyleBackColor = true;
@@ -160,35 +130,35 @@
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(233, 466);
+            textBox4.Location = new Point(226, 420);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(161, 33);
             textBox4.TabIndex = 13;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(233, 386);
+            textBox3.Location = new Point(226, 340);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(161, 33);
             textBox3.TabIndex = 12;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(233, 299);
+            textBox2.Location = new Point(226, 253);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(161, 33);
             textBox2.TabIndex = 11;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(233, 212);
+            textBox1.Location = new Point(226, 166);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(161, 33);
             textBox1.TabIndex = 10;
             // 
             // button1
             // 
-            button1.Location = new Point(233, 551);
+            button1.Location = new Point(226, 505);
             button1.Margin = new Padding(7, 5, 7, 5);
             button1.Name = "button1";
             button1.Size = new Size(100, 37);
@@ -201,7 +171,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 17.25F);
-            label5.Location = new Point(59, 466);
+            label5.Location = new Point(52, 420);
             label5.Margin = new Padding(7, 0, 7, 0);
             label5.Name = "label5";
             label5.Size = new Size(164, 27);
@@ -212,7 +182,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Century Gothic", 17.25F);
-            label3.Location = new Point(138, 386);
+            label3.Location = new Point(131, 340);
             label3.Margin = new Padding(7, 0, 7, 0);
             label3.Name = "label3";
             label3.Size = new Size(85, 27);
@@ -223,7 +193,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Century Gothic", 17.25F);
-            label4.Location = new Point(129, 551);
+            label4.Location = new Point(122, 505);
             label4.Margin = new Padding(7, 0, 7, 0);
             label4.Name = "label4";
             label4.Size = new Size(90, 27);
@@ -234,7 +204,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 17.25F);
-            label1.Location = new Point(106, 299);
+            label1.Location = new Point(99, 253);
             label1.Margin = new Padding(7, 0, 7, 0);
             label1.Name = "label1";
             label1.Size = new Size(126, 27);
@@ -245,7 +215,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 17.25F);
-            label2.Location = new Point(31, 212);
+            label2.Location = new Point(24, 166);
             label2.Margin = new Padding(7, 0, 7, 0);
             label2.Name = "label2";
             label2.Size = new Size(192, 27);
@@ -255,6 +225,17 @@
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Century Gothic", 17.25F);
+            label6.Location = new Point(178, 745);
+            label6.Margin = new Padding(7, 0, 7, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(47, 27);
+            label6.TabIndex = 23;
+            label6.Text = "İD :";
             // 
             // UrunAdmin
             // 
@@ -289,13 +270,11 @@
         private TextBox textBox3;
         private TextBox textBox2;
         private OpenFileDialog openFileDialog1;
-        private Button button4;
         private Button button3;
         private Button button2;
         private Button button5;
-        private TextBox textBox5;
-        private Label label6;
         private TextBox textBox6;
         private Button button6;
+        private Label label6;
     }
 }

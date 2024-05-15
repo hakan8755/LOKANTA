@@ -13,35 +13,23 @@ namespace LOKANTA
 
             // Her 1000 milisaniyede bir (1 saniye) timer_Tick olayýný tetikle
 
-       
+
             string formattedDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             label1.Text = formattedDateTime;
-            button1.Paint += Button1_Paint;
+            
             timer1.Tick += Timer1_Tick;
         }
 
         private void Timer1_Tick(object? sender, EventArgs e)
         {
-           
-          
+
+
             string formattedDateTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             label1.Text = formattedDateTime;
         }
 
         private void Button1_Paint(object? sender, PaintEventArgs e)
         {
-            GraphicsPath path = new GraphicsPath();
-            int arcRadius = 35; // Kavis yarýçapý, istediðiniz deðere göre ayarlayabilirsiniz.
-
-            // Dikdörtgenin köþelerini kavisli hale getiriyoruz.
-            path.AddArc(0, 0, arcRadius * 2, arcRadius * 2, 180, 90);
-            path.AddArc(button1.Width - arcRadius * 2, 0, arcRadius * 2, arcRadius * 2, 270, 90);
-            path.AddArc(button1.Width - arcRadius * 2, button1.Height - arcRadius * 2, arcRadius * 2, arcRadius * 2, 0, 90);
-            path.AddArc(0, button1.Height - arcRadius * 2, arcRadius * 2, arcRadius * 2, 90, 90);
-
-            // Butonun arka planýný kavisli þekilde dolduruyoruz.
-             // Ýstediðiniz arka plan rengini ayarlayabilirsiniz.
-            button1.Region = new Region(path);
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -79,7 +67,7 @@ namespace LOKANTA
             }
             else
             {
-                MessageBox.Show("Lütgen Giriþ Yapýnýz");
+                MessageBox.Show("Lütfen Giriþ Yapýnýz");
             }
         }
 
@@ -98,14 +86,12 @@ namespace LOKANTA
             }
             else
             {
-                MessageBox.Show("Lütgen Giriþ Yapýnýz");
+                MessageBox.Show("Lütfen Giriþ Yapýnýz");
             }
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
-           
-         
         }
 
         private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -123,13 +109,28 @@ namespace LOKANTA
             }
             else
             {
-                MessageBox.Show("Lütgen Giriþ Yapýnýz");
+                MessageBox.Show("Lütfen Giriþ Yapýnýz");
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void linkLabel3_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel3_LinkClicked_2(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            KariyerHesap gec = new KariyerHesap();
+            gec.Show();
         }
     }
 }

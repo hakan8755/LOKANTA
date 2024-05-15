@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 namespace LOKANTA
 {
@@ -40,7 +41,7 @@ namespace LOKANTA
         //}
         private void girisEkranı_Load(object sender, PaintEventArgs e)
         {
-
+           
         }
        
 
@@ -65,13 +66,13 @@ namespace LOKANTA
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-        
+            UrunSiparisEkran.kontrol = true;
             string username = txtAd.Text.ToString();
             string password = txtSifre.Text.ToString();
             genel gnl = new genel();
             MySqlConnection connection = new MySqlConnection(gnl.connadress);
             connection.Open();
-            MySqlCommand cmd = new MySqlCommand("Select * from cashier where @username=username and @password=password", connection);
+            MySqlCommand cmd = new MySqlCommand("Select * from cashier where @username=username and @password=password and deleted=0", connection);
             cmd.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
             cmd.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
             MySqlDataReader dr = cmd.ExecuteReader();

@@ -29,11 +29,13 @@ namespace LOKANTA
             }
         }
 
-
+       
         genel gnl = new genel();
+        Sorgular srg = new Sorgular();
         public static bool kontrol = true;
-        int adet = 1;
+        int adet = 0;
         int sayac = 0;
+       
         private void button2_Click(object sender, EventArgs e)
         {
             flowLayoutPanel1.Controls.Clear();
@@ -48,15 +50,16 @@ namespace LOKANTA
             {
                 label7.Text = $"Sipariş Masa No: {MasalarForm.masano}";
                 label7.Visible = true;
+            
             }
-
+          
             using (MySqlConnection connection = new MySqlConnection(gnl.connadress))
             {
                 connection.Open();
 
-                string sql = "SELECT product_id, product_name ,price,category_name,stock_quantity,location FROM products Inner Join product_category on products.category=product_category.category_id where category_id=@categoryid ;";
+                //string sql = "SELECT product_id, product_name ,price,category_name,stock_quantity,location FROM products Inner Join product_category on products.category=product_category.category_id where category_id=@categoryid ;";
 
-                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                using (MySqlCommand command = new MySqlCommand(srg.urunGoster, connection))
                 {
                     command.Parameters.Add("@categoryid", MySqlDbType.Int32).Value = categoryNo;
                     using (MySqlDataReader dr = command.ExecuteReader())
@@ -199,39 +202,33 @@ namespace LOKANTA
                 {
                     // Öğeyi ListView'dan kaldırın
                     listView1.Items.Remove(item);
+                    sayac--;
                 }
             }
+
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             MySqlConnection connection = new MySqlConnection(gnl.connadress);
-         
+
             int totalPrice = 0;
             try
             {
                 connection.Open();
-                
-                string query1 = "INSERT INTO customers (first_name, last_name) VALUES (@ad, @soyad)";
-                string query2 = "INSERT INTO orders (customer_id, table_id,employee_id,order_date,total_amount) VALUES (@musteri_id, @masa_id,@employee_id,@tarih,@toplamucret)";
-                string query3 = "SELECT customer_id FROM customers ORDER BY customer_id DESC LIMIT 1";
-                string query4 = "SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1";
-                string query5 = "INSERT INTO order_details (order_id, product_id,unit_price,total_price,amount) VALUES (@siparis_id, @urunid,@fiyat,@toplamucret,@adet)";
+
 
                 string zaman = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                MySqlCommand cmd = new MySqlCommand(query1, connection);
-               
-                MySqlCommand command = new MySqlCommand(query3, connection);
-                MySqlCommand command2 = new MySqlCommand(query2, connection);
-               
-                MySqlCommand command4 = new MySqlCommand(query5, connection);
-
-                 MySqlCommand command5 = new MySqlCommand(query4, connection);
+                MySqlCommand cmd = new MySqlCommand(srg.urunMusteri, connection);
+                MySqlCommand command = new MySqlCommand(srg.urunSonMusteriAl, connection);
+                MySqlCommand command2 = new MySqlCommand(srg.urunSiparisGir, connection);
+                MySqlCommand command4 = new MySqlCommand(srg.urunDetayGir, connection);
+                MySqlCommand command5 = new MySqlCommand(srg.urunSonSiparisAl, connection);
 
                 cmd.Parameters.AddWithValue("@ad", musteriAD.Text);
                 cmd.Parameters.AddWithValue("@soyad", musteriSoyad.Text);
-
+                cmd.ExecuteNonQuery();
                 int lastOrderId = Convert.ToInt32(command5.ExecuteScalar());
                 int lastCustomerId = Convert.ToInt32(command.ExecuteScalar());
                 if (lastCustomerId != 0)
@@ -241,15 +238,14 @@ namespace LOKANTA
                         int price = Convert.ToInt32(item.SubItems[1].Text) * Convert.ToInt32(item.SubItems[2].Text); // İlgili sütundaki fiyatı al
                         totalPrice += price;
                     }
-                    cmd.ExecuteNonQuery();
 
                     command.ExecuteNonQuery();
-                    command2.Parameters.AddWithValue("@musteri_id", lastCustomerId+1);
+                    command2.Parameters.AddWithValue("@musteri_id", lastCustomerId);
                     command2.Parameters.AddWithValue("@masa_id", MasalarForm.masano);
-                    command2.Parameters.AddWithValue("@employee_id", girisEkranı.personel_id);
+                    command2.Parameters.AddWithValue("@cashier_id", girisEkranı.personel_id);
                     command2.Parameters.AddWithValue("@tarih", zaman);
                     command2.Parameters.AddWithValue("@toplamucret", totalPrice);
-
+                    
                     command2.ExecuteNonQuery();
                     // Başarılı mesajı göster
 
@@ -266,7 +262,7 @@ namespace LOKANTA
                         string adet = item.SubItems[2].Text;
                         int toplamUcret = Convert.ToInt16(fiyat.ToString()) * Convert.ToInt16(adet.ToString());
                         int urunid = Convert.ToInt16(item.SubItems[3].Text);
-                        command4.Parameters["@siparis_id"].Value = lastOrderId;
+                        command4.Parameters["@siparis_id"].Value = lastOrderId + 1;
                         command4.Parameters["@urunid"].Value = urunid;
                         command4.Parameters["@fiyat"].Value = fiyat;
                         command4.Parameters["@toplamucret"].Value = toplamUcret;
@@ -277,7 +273,7 @@ namespace LOKANTA
 
                     }
 
-                    MessageBox.Show("Öğeler veritabanına başarıyla kaydedildi.");
+                    MessageBox.Show("Sipariş Oluşturuldu.");
 
 
 
@@ -294,13 +290,13 @@ namespace LOKANTA
             catch (Exception ex)
             {
                 // Hata durumunda hata mesajını göster
-                MessageBox.Show("Veritabanına kaydetme sırasında bir hata oluştu: " + ex.Message);
+                MessageBox.Show("Siparişi kaydetme sırasında bir hata oluştu lütfen doğru işlem yaptığınızdan emin olun: " + ex.Message);
             }
             finally
             {
                 // Bağlantıyı kapat
                 connection.Close();
-                
+
             }
         }
 
@@ -310,6 +306,25 @@ namespace LOKANTA
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void UrunSiparisEkran_Load(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Controls.Clear();
+            urunGetir(1);
+            urunGetir(2);
+            urunGetir(3);
+            urunGetir(4);
+        }
+
+        private void label7_Click(object sender, EventArgs e)
         {
 
         }

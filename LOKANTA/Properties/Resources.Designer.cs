@@ -123,6 +123,16 @@ namespace LOKANTA.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap plus_icon_plus_svg_png_icon_download_1 {
+            get {
+                object obj = ResourceManager.GetObject("plus-icon-plus-svg-png-icon-download-1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap png_clipart_computer_icons_equal_miscellaneous_logo_thumbnail {
             get {
                 object obj = ResourceManager.GetObject("png-clipart-computer-icons-equal-miscellaneous-logo-thumbnail", resourceCulture);

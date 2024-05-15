@@ -204,6 +204,7 @@
             label1.Size = new Size(73, 33);
             label1.TabIndex = 13;
             label1.Text = "Saat";
+            label1.Click += label1_Click;
             // 
             // pictureBox9
             // 

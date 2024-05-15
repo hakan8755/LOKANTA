@@ -21,6 +21,7 @@ namespace LOKANTA
         }
         int renkControl = 0;
         genel gnl = new genel();
+        Sorgular srg = new Sorgular();
         public static string masano;
         private void button1_Click(object sender, EventArgs e)
         {
@@ -34,10 +35,7 @@ namespace LOKANTA
             {
                 flowLayoutPanel1.Controls.Clear();
                 connection.Open();
-                string sql = "SELECT * FROM tables";
-
-
-                using (MySqlCommand command = new MySqlCommand(sql, connection))//using kullanımı bağlantıyı kendiliğinden kapatıyor
+                using (MySqlCommand command = new MySqlCommand(srg.masaGoster, connection))//using kullanımı bağlantıyı kendiliğinden kapatıyor
                 {
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -76,6 +74,7 @@ namespace LOKANTA
                                     MessageBox.Show($"{masaNo} Numaralı Masaya İşlem Yapmaktasınız!");
                                     UrunSiparisEkran gec = new UrunSiparisEkran();
                                     gec.Show();
+                                    this.Hide();
                                     komut.Parameters.AddWithValue("@status", 1);
 
                                     //masano = pictureBox.Tag.ToString();
@@ -97,21 +96,14 @@ namespace LOKANTA
                             string istenilenDizinYol = yenidizin.Substring(0, index + istenilenDizin.Length);
                             if (masaDurum == "1")
                             {
-                             
-                            
-                                string resimYolu = istenilenDizinYol+ "\\\\LOKANTA\\\\resim\\\\red.png";
-                              
+                                string resimYolu = istenilenDizinYol + "\\\\LOKANTA\\\\resim\\\\red.png";
                                 pictureBox.ImageLocation = resimYolu;
-                               // pictureBox.ImageLocation = "C:\\Users\\firat\\OneDrive\\Masaüstü\\LOKANTA\\LOKANTA\\resim\\red.png";
-                                //pictureBox.ImageLocation = "resim/red.png";
-
                             }
                             else
                             {
                                 string resimYolu = istenilenDizinYol + "\\\\LOKANTA\\\\resim\\\\green.png";
                                 pictureBox.ImageLocation = resimYolu;
                             }
-                            //pictureBox.Tag = $"masaNo";
                             pictureBox.Width = 100; // Resim kutusunun genişliği
                             pictureBox.Height = 100; // Resim kutusunun yüksekliği
                             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -159,20 +151,23 @@ namespace LOKANTA
             }
             using (MySqlConnection connection = new MySqlConnection(gnl.connadress))
             {
-                // MySQL komutunu oluştur
-                string query = "INSERT INTO tables (table_no, capacity, status) VALUES (@table_no, @capacity, @status)";
-                MySqlCommand command = new MySqlCommand(query, connection);
-
-                // Parametre ekleme
+                MySqlCommand command = new MySqlCommand(srg.masaInsert, connection);
                 command.Parameters.AddWithValue("@table_no", table_no);
                 command.Parameters.AddWithValue("@capacity", capacity);
                 command.Parameters.AddWithValue("@status", status);
-
-                // Bağlantıyı aç
                 connection.Open();
-
-                // Komutu çalıştır
-                command.ExecuteNonQuery();
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Hatalı Kayıt: " + ex.Message);
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
             MasalariGetir(true);
         }
@@ -198,11 +193,19 @@ namespace LOKANTA
             using (MySqlConnection connection = new MySqlConnection(gnl.connadress))
             {
                 string numara = textBox1.Text.ToString();
-                string query = "DELETE FROM tables WHERE table_no = @Numara";
-                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand(srg.masaDelete, connection);
                 command.Parameters.AddWithValue("@Numara", numara);
                 connection.Open();
-                command.ExecuteNonQuery();
+                try
+                {
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Silme İşlemi Başarılı!");
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Silinemedi Lütfen Doğru bir değer giriniz: " + ex.Message);
+                }
+                finally { connection.Close(); }
             }
             MasalariGetir(true);
         }
@@ -225,6 +228,11 @@ namespace LOKANTA
         private void button6_Click_1(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void MasalarForm_Load(object sender, EventArgs e)
+        {
+        
         }
     }
 }
